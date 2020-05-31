@@ -165,12 +165,12 @@ class PPTX2Json {
   /**
    * @method getSlideLayoutHash
    * 
-   * Find the slideLayouts in json, and generate Hash has SlideLayoutType as a key and file-path as a value.
+   * Find the slideLayouts in json, and generate Hash has SlideLayoutType as a key and a file path as a value.
    * If SlideLayoutType does not appear in xml, exclude these slideLayouts.
    * SlideLayoutType see: https://docs.microsoft.com/en-us/openspecs/office_file_formats/ms-ppt/df8f3d7b-db67-47dc-8c89-20f5cbbf0fa9
    * 
    * @param {Object} json created from PowerPoint XMLs.
-   * @returns {Object} Key: layout-type, Value: file-path.
+   * @returns {Object} Key: SlideLayoutType, Value: file path.
    */
   getSlideLayoutTypeHash(json) {
     const table = {};
