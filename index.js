@@ -14,6 +14,7 @@ const assert = require('assert');
 const JSZip = require('jszip');
 const xml2js = require('xml2js');
 
+const PresentationXML = 'ppt/presentation.xml';
 
 /**
  * @class PPTX2Json
@@ -123,6 +124,34 @@ class PPTX2Json {
     }
     return await fs.writeFile(options.file, buf);
   }
+
+  getMaxSlideIds(json) {
+    let mx = {'id': -1, 'rid': -1};
+    
+    if (!PresentationXML in json) {
+      return mx;
+    }
+    const presen = json[PresentationXML];
+
+    if (!'p:presentation' in json[PresentationXML] || !'p:sldIdLst' in presen['p:presentation']) {
+      return mx;
+    }
+
+    presen['p:presentation']['p:sldIdLst'].forEach(xs => {
+      const maxId = xs['p:sldId'].reduce((a, b) => {
+        const bId = parseInt(b.$.id);
+        return a > bId ? a : bId;
+      }, -1);
+      const maxRid = xs['p:sldId'].reduce((a, b) => {
+        const bId = parseInt(b.$['r:id'].replace('rId', ''));
+        return a > bId ? a : bId;
+      }, -1);
+      mx.id = Math.max(maxId, mx.id);
+      mx.rid = Math.max(maxRid, mx.rid);
+    });
+    return mx;
+  }
+
 }
 
 module.exports = PPTX2Json;

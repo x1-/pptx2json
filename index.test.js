@@ -8,6 +8,43 @@ const testPPTX = "./fixtures/test.pptx";
 const testZip = "./fixtures/test.zip";
 const testImage = "./fixtures/cube.jpeg";
 
+test('When given presentation.xml has slId, getMaxSlideIds returns max id and max rid.', () => {
+  const pptx2json = new PPTX2Json();
+  const json = {
+    'ppt/presentation.xml': {"p:presentation": {"p:sldIdLst": [
+      {"p:sldId": [{
+        "$": {
+          "id": "262",
+          "r:id": "rId5"
+        }
+      },{
+        "$": {
+          "id": "261",
+          "r:id": "rId6"
+        }
+      },{
+        "$": {
+          "id": "267",
+          "r:id": "rId7"
+        }
+      }]}
+    ]}}
+  };
+  const ids = pptx2json.getMaxSlideIds(json);
+  expect(ids.id).toBe(267);
+  expect(ids.rid).toBe(7);
+});
+
+test('When give presentation.xml does not have sldId, getMaxSlideIds returns -1.', () => {
+  const pptx2json = new PPTX2Json();
+  const json = {
+    'ppt/presentation.xml': {"p:presentation": {"p:sldIdLst": []}}
+  };
+  const ids = pptx2json.getMaxSlideIds(json);
+  expect(ids.id).toBe(-1);
+  expect(ids.rid).toBe(-1);
+});
+
 test('When give valid zip object, jszip2json returns valid json.', async () => {
   const buff = fs.readFileSync(testZip);
   const zip = await JSZip().loadAsync(buff);
