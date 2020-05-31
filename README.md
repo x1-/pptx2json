@@ -55,6 +55,31 @@ const json = await pptx2json.toJson('path/to/pptx');
 await pptx2json.toPPTX(json, {'file': 'path/to/output.pptx'});
 ```
 
+### Get max id, rid in slides.
+
+```javascript
+const PPTX2Json = require('pptx2json');
+const pptx2json = new PPTX2Json();
+
+const json = await pptx2json.toJson(testPPTX);
+const ids = pptx2json.getMaxSlideIds(json);
+// {'id': 5, 'rid': 3}
+```
+
+### Get slideLayoutType Hash.
+
+```javascript
+const PPTX2Json = require('pptx2json');
+const pptx2json = new PPTX2Json();
+
+const json = await pptx2json.toJson(testPPTX);
+const table = pptx2json.getSlideLayoutTypeHash(json);
+// {
+//    'title': 'ppt/slideLayouts/slideLayout1.xml',
+//    'blank': 'ppt/slideLayouts/slideLayout7.xml'
+// }
+```
+
 ## Dependencies
 
 - [jszip](https://github.com/Stuk/jszip)
