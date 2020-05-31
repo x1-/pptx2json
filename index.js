@@ -125,6 +125,16 @@ class PPTX2Json {
     return await fs.writeFile(options.file, buf);
   }
 
+  /**
+   * @method getMaxSlideIds
+   * 
+   * Find max id and r:id in the slides at presentation.xml.
+   * If any slides do not present at presentation.xml, returns {'id': -1, 'rid': -1}.
+   * notice: 'rid' is represented as {'r:id':'rId1'} at presentation.xml, but this method returns Number.
+   * 
+   * @param {Object} json created from PowerPoint XMLs.
+   * @returns {Object} ex) {'id': 27, 'rid': 7};
+   */
   getMaxSlideIds(json) {
     let mx = {'id': -1, 'rid': -1};
     
@@ -152,6 +162,31 @@ class PPTX2Json {
     return mx;
   }
 
+  /**
+   * @method getSlideLayoutHash
+   * 
+   * Find the slideLayouts in json, and generate Hash has SlideLayoutType as a key and a file path as a value.
+   * If SlideLayoutType does not appear in xml, exclude these slideLayouts.
+   * SlideLayoutType see: https://docs.microsoft.com/en-us/openspecs/office_file_formats/ms-ppt/df8f3d7b-db67-47dc-8c89-20f5cbbf0fa9
+   * 
+   * @param {Object} json created from PowerPoint XMLs.
+   * @returns {Object} Key: SlideLayoutType, Value: file path.
+   */
+  getSlideLayoutTypeHash(json) {
+    const table = {};
+    const layouts =
+      Object.keys(json).filter(key => /^ppt\/slideLayouts\/[^_]+\.xml$/.test(key) && json[key]['p:sldLayout']);
+    if (!layouts) {
+      return table;
+    }
+    layouts.forEach(layout => {
+      if (!json[layout]['p:sldLayout'].$.type) {
+        return;
+      }
+      table[json[layout]['p:sldLayout'].$.type] = layout;
+    })
+    return table;
+  }
 }
 
 module.exports = PPTX2Json;

@@ -45,6 +45,14 @@ test('When give presentation.xml does not have sldId, getMaxSlideIds returns -1.
   expect(ids.rid).toBe(-1);
 });
 
+test('When give valid pptx object, getSlideLayoutTypeHash returns valid LayoutTypeHash.', async () => {
+  const pptx2json = new PPTX2Json();
+  const json = await pptx2json.toJson(testPPTX);
+  const table = pptx2json.getSlideLayoutTypeHash(json);
+  expect(table.title).toBe('ppt/slideLayouts/slideLayout1.xml');
+  expect(table.blank).toBe('ppt/slideLayouts/slideLayout7.xml');
+});
+
 test('When give valid zip object, jszip2json returns valid json.', async () => {
   const buff = fs.readFileSync(testZip);
   const zip = await JSZip().loadAsync(buff);
