@@ -1,5 +1,9 @@
 # pptx2json
 
+![Node.js CI](https://github.com/x1-/pptx2json/workflows/Node.js%20CI/badge.svg?branch=master)
+![npm](https://img.shields.io/npm/v/npm)
+[![MIT License](http://img.shields.io/badge/license-MIT-blue.svg?style=flat)](LICENSE)
+
 Operating Powerpoint file (Microsoft Office 2007 and later) as Office Open XML without external tools, just pure Javascript.  
 Providing two main functions:
 - Parse from a PowerPoint file to Json
