@@ -1,0 +1,32 @@
+{
+  "name": "pptx2json",
+  "version": "0.0.1",
+  "description": "Parse a Powerpoint file to a Json.",
+  "keywords": [
+    "powerpoint",
+    "pptx",
+    "openxml",
+    "json"
+  ],
+  "homepage": "https://github.com/x1-/pptx2json",
+  "author": "x1- <viva008@gmail.com> (https://x1.inkenkun.com)",
+  "license": "MIT",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest --detectOpenHandles --forceExit"
+  },
+  "dependencies": {
+    "jszip": "^3.2.0",
+    "xml2js": "^0.4.22"
+  },
+  "devDependencies": {
+    "jest": "^25.5.0"
+  },
+  "jest": {
+    "testPathIgnorePatterns": [
+      "/node_modules/",
+      "/config"
+    ],
+    "testTimeout": 30000
+  }
+}
