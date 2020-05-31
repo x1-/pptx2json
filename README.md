@@ -1,0 +1,63 @@
+# pptx2json
+
+Operating Powerpoint file (Microsoft Office 2007 and later) as Office Open XML without external tools, just pure Javascript.  
+Providing two main functions:
+- Parse from a PowerPoint file to Json
+- Parse from a Json to PowerPoint
+
+The images, movies, audio files and so on in a PowerPoint are treated as binary.  
+This is strongly inspired from [pptx-compose](https://github.com/shobhitsharma/pptx-compose).  
+
+## Installation
+
+```sh
+$ npm install pptx2json
+```
+
+## Usage
+
+### Parse a PowerPoint file to Json
+
+```javascript
+const PPTX2Json = require('pptx2json');
+const pptx2json = new PPTX2Json();
+
+const json = await pptx2json.toJson('path/to/pptx');
+```
+
+### Rebuild a PowerPoint from Json
+
+If you want to get a buffer below:
+
+```javascript
+const PPTX2Json = require('pptx2json');
+const pptx2json = new PPTX2Json();
+
+const json = await pptx2json.toJson('path/to/pptx');
+:
+// return buffer to pptx 
+const pptx = await pptx2json.toPPTX(json);
+```
+
+Otherwise want to write a file below:
+
+```javascript
+const PPTX2Json = require('pptx2json');
+const pptx2json = new PPTX2Json();
+
+const json = await pptx2json.toJson('path/to/pptx');
+:
+// write pptx to the path 
+await pptx2json.toPPTX(json, {'file': 'path/to/output.pptx'});
+```
+
+## Dependencies
+
+- [jszip](https://github.com/Stuk/jszip)
+- [xml2js](https://github.com/Leonidas-from-XIV/node-xml2js)
+
+
+## Reference
+
+- [PresentationML Presentation](http://officeopenxml.com/prPresentation.php)
+- [PresentationML ドキュメントを操作する](https://docs.microsoft.com/ja-jp/office/open-xml/working-with-presentationml-documents)
