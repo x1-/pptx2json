@@ -69,9 +69,21 @@ class PPTX2Json {
   async toJson(file) {
     assert.equal(typeof file, 'string', "argument 'file' must be a string");
 
-    const content = {};
-
     const buff = await fs.readFile(file);
+    const zip = await JSZip().loadAsync(buff);
+
+    return await this.jszip2json(zip);
+  }
+
+  /**
+   * @method buffer2json
+   * 
+   * Parse PowerPoint file to Json.
+   * 
+   * @param {string} buffer Binary contents of a PowerPoint file.
+   * @returns {Promise} json 
+   */
+  async buffer2json(buff) {
     const zip = await JSZip().loadAsync(buff);
 
     return await this.jszip2json(zip);
