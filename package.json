@@ -16,11 +16,11 @@
     "test": "jest --detectOpenHandles --forceExit"
   },
   "dependencies": {
-    "jszip": "^3.2.0",
-    "xml2js": "^0.4.22"
+    "jszip": "^3.7.0",
+    "xml2js": "^0.4.23"
   },
   "devDependencies": {
-    "jest": "^25.5.0"
+    "jest": "^27.0.6"
   },
   "jest": {
     "testPathIgnorePatterns": [
