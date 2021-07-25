@@ -1,6 +1,6 @@
 {
   "name": "pptx2json",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "Parse a Powerpoint file to a Json.",
   "keywords": [
     "powerpoint",
